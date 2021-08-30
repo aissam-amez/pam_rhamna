@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:rhamna_pam/models/content.dart';
 import 'package:rhamna_pam/components/video.dart';
+import 'package:rhamna_pam/screens/article.dart';
 
 class ContentCard extends StatelessWidget {
   final Content content;
@@ -22,7 +23,12 @@ class ContentCard extends StatelessWidget {
 
     if (content.name == "article") {
       seeMoreWidget = TextButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            new MaterialPageRoute(builder: (context) => Article_page(content: content)),
+          );
+        },
         style: TextButton.styleFrom(
           primary: Colors.white,
           backgroundColor: Colors.cyan,

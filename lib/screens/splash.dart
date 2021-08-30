@@ -38,24 +38,24 @@ class _SplashScreenState extends State<SplashScreen>
       decoration: BoxDecoration(
           color: Colors.indigo[900],
           image: DecorationImage(
-              image: AssetImage("Layer.png"), fit: BoxFit.cover)),
+              image: AssetImage("assets/Layer.png"), fit: BoxFit.cover)),
       child: Center(
-        child: Container(
+        child: /*Container(
           height: 250,
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.grey[100],
           ),
-          child: ClipRRect(
+          child: */ClipRRect(
             child: ClipOval(
               child: Image.asset(
                 'assets/rhamna_pam.jpg',
-                //height: 250,
+                height: 250,
               ),
             ),
           ),
-        ),
+        //),
       ),
     ));
   }
