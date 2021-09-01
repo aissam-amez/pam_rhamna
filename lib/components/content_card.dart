@@ -16,7 +16,7 @@ class ContentCard extends StatelessWidget {
     if (content.type == 'jpg' ||
         content.type == 'jpeg' ||
         content.type == 'png') {
-      fileWidget = Image.network(content.file);
+      fileWidget = InteractiveViewer(child: Image.network(content.file));
     } else if (content.type == "mp4") {
       fileWidget = MyVideo(video: content.file);
     }
@@ -26,7 +26,8 @@ class ContentCard extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            new MaterialPageRoute(builder: (context) => Article_page(content: content)),
+            new MaterialPageRoute(
+                builder: (context) => ArticlePage(content: content)),
           );
         },
         style: TextButton.styleFrom(
@@ -62,7 +63,13 @@ class ContentCard extends StatelessWidget {
         child: Center(
             child: Column(
           children: [
-            Text(content.title),
+            Text(
+              content.title,
+              textDirection: TextDirection.rtl,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.blue[900]),
+              textAlign: TextAlign.center,
+            ),
             Padding(
               padding: EdgeInsets.only(bottom: 8, top: 8),
               child: fileWidget,

@@ -3,13 +3,12 @@ import 'package:rhamna_pam/models/content.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:rhamna_pam/components/video.dart';
 
-class Article_page extends StatelessWidget {
+class ArticlePage extends StatelessWidget {
   final Content content;
-  const Article_page({Key? key, required this.content}) : super(key: key);
+  const ArticlePage({Key? key, required this.content}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     Widget fileWidget = Text('');
     if (content.type == 'jpg' ||
         content.type == 'jpeg' ||
@@ -19,7 +18,6 @@ class Article_page extends StatelessWidget {
       fileWidget = MyVideo(video: content.file);
     }
 
-
     Widget titleSection = Container(
       padding: const EdgeInsets.all(32),
       child: Row(
@@ -27,16 +25,17 @@ class Article_page extends StatelessWidget {
           Expanded(
             /*1*/
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 /*2*/
                 Container(
-                  padding: const EdgeInsets.only(bottom: 8),
                   child: Text(
                     content.title,
+                    textAlign: TextAlign.center,
+                    textDirection: TextDirection.rtl,
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.blue[900]),
                   ),
                 ),
                 /*Text(
@@ -58,7 +57,7 @@ class Article_page extends StatelessWidget {
       ),
     );
 
-    Column _buildButtonColumn(Color color, IconData icon, String label) {
+    /*Column _buildButtonColumn(Color color, IconData icon, String label) {
       return Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -77,9 +76,9 @@ class Article_page extends StatelessWidget {
           ),
         ],
       );
-    }
+    }*/
 
-    Color color = Theme.of(context).primaryColor;
+    /*Color color = Theme.of(context).primaryColor;*/
 
     /*Widget buttonSection = Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -92,20 +91,21 @@ class Article_page extends StatelessWidget {
 
     Widget textSection = Padding(
       padding: EdgeInsets.all(32),
-      child: Html(
+      child: Directionality(
+        textDirection: TextDirection.rtl,
+        child: Html(
           data: content.content,
+        ),
       ),
     );
 
     return Scaffold(
-      extendBodyBehindAppBar: true, //for body enter the app bar
+      //extendBodyBehindAppBar: true, //for body enter the app bar
       appBar: new AppBar(
+        centerTitle: true,
         title: new Text(
-          "Rhamna PAM",
-          style: TextStyle(color: Colors.amber),
+          "تراكتور الرحامنة",
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
       ),
       body: SingleChildScrollView(
           child: Column(

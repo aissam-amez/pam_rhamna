@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   void navigationPage() {
     Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => MyHomePage(title: 'Rhamna PAM')));
+        MaterialPageRoute(builder: (_) => MyHomePage(title: 'تراكتور الرحامنة')));
   }
 
   Widget build(BuildContext context) {
@@ -40,22 +40,22 @@ class _SplashScreenState extends State<SplashScreen>
           image: DecorationImage(
               image: AssetImage("assets/Layer.png"), fit: BoxFit.cover)),
       child: Center(
-        child: /*Container(
+        child: Container(
           height: 250,
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: Colors.grey[100],
           ),
-          child: */ClipRRect(
+          child: ClipRRect(
             child: ClipOval(
               child: Image.asset(
-                'assets/rhamna_pam.jpg',
-                height: 250,
+                'assets/pam_r.jpg',
+                //height: 250,
               ),
             ),
           ),
-        //),
+        ),
       ),
     ));
   }

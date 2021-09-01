@@ -16,6 +16,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late Future connectivityResult;
   late Future contents;
+  ScrollController _scrollController = new ScrollController();
+
+  var end = 5;
 
   @override
   void initState() {
@@ -28,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Rhamna PAM'),
+          title: Text('تراكتور الرحامنة'),
         ),
         body: FutureBuilder(
             future: connectivityResult,
@@ -39,11 +42,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   return Container(
                     child: SafeArea(
                         child: SingleChildScrollView(
+                      controller: _scrollController,
                       child: Column(
                         children: [
                           Header(
-                            background: "assets/rhamna_pam_header.jpg",
-                            avatar: "assets/rhamna_pam.jpg",
+                            background: "assets/bg_pam_r.jpg",
+                            avatar: "assets/pam_r.jpg",
                           ),
                           /*Text(
                   widget.label,
@@ -54,16 +58,28 @@ class _MyHomePageState extends State<MyHomePage> {
                               builder: (BuildContext context,
                                   AsyncSnapshot<dynamic> snapshot) {
                                 if (snapshot.hasData) {
-                                  print(snapshot.data);
+                                  //print(snapshot.data);
                                   List contents = snapshot.data
                                       .map((model) => Content.fromJson(model))
                                       .toList();
-                                  print(contents);
-
+                                  //print(contents);
+                                  _scrollController.addListener(() {
+                                    if (_scrollController.position.pixels ==
+                                        _scrollController
+                                            .position.maxScrollExtent) {
+                                      //print("fdgfgdfgdfg");
+                                      setState(() {
+                                        end = end + 5 >= contents.length
+                                            ? contents.length
+                                            : end + 5;
+                                      });
+                                    }
+                                  });
                                   return Padding(
                                     padding: EdgeInsets.all(10),
                                     child: Column(
                                       children: contents
+                                          .sublist(0, end) //contents
                                           .map(
                                             (content) => ContentCard(
                                               content: content,
@@ -74,8 +90,34 @@ class _MyHomePageState extends State<MyHomePage> {
                                   );
                                 } else if (snapshot.hasError) {
                                   return Center(
-                                    child: Text(snapshot.error.toString()),
-                                  );
+                                      child: Column(
+                                    children: [
+                                      Text(
+                                        "حدث غلط في الإتصال بالشبكة المرجو إعادة المحاولة",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.only(top: 20),
+                                        child: TextButton(
+                                            style: TextButton.styleFrom(
+                                                padding:
+                                                    const EdgeInsets.all(16.0),
+                                                primary: Colors.white,
+                                                textStyle: const TextStyle(
+                                                    fontSize: 20),
+                                                backgroundColor:
+                                                    Colors.cyan[800]),
+                                            onPressed: () {
+                                              setState(() {
+                                                connectivityResult =
+                                                    Connectivity()
+                                                        .checkConnectivity();
+                                              });
+                                            },
+                                            child: Text('تحديث')),
+                                      )
+                                    ],
+                                  ));
                                 }
                                 return Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
