@@ -109,9 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     Colors.cyan[800]),
                                             onPressed: () {
                                               setState(() {
-                                                connectivityResult =
-                                                    Connectivity()
-                                                        .checkConnectivity();
+                                                contents = getContentFromApi();
                                               });
                                             },
                                             child: Text('تحديث')),
@@ -150,6 +148,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 setState(() {
                                   connectivityResult =
                                       Connectivity().checkConnectivity();
+
+                                  contents = getContentFromApi();
                                 });
                               },
                               child: Text('تحديث')),
