@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:rhamna_pam/models/content.dart';
-import 'package:rhamna_pam/components/video.dart';
 import 'package:rhamna_pam/screens/article.dart';
+import 'package:rhamna_pam/components/video_frame.dart';
 
 class ContentCard extends StatelessWidget {
   final Content content;
@@ -16,9 +16,16 @@ class ContentCard extends StatelessWidget {
     if (content.type == 'jpg' ||
         content.type == 'jpeg' ||
         content.type == 'png') {
-      fileWidget = InteractiveViewer(child: Image.network(content.file));
+      fileWidget = InteractiveViewer(
+          child: Image.network(content.file, loadingBuilder:
+              (context, child, progress) {
+        return progress == null ? child : LinearProgressIndicator();
+      }, errorBuilder:
+              (BuildContext context, Object exception, StackTrace? stackTrace) {
+        return Text("حدث خطأ في الصورة");
+      }));
     } else if (content.type == "mp4") {
-      fileWidget = MyVideo(video: content.file);
+      fileWidget = VideoFrame(video: content.file);
     }
 
     if (content.name == "article") {
